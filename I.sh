@@ -1,16 +1,4 @@
 #!/system/bin/sh
-# 动态边框版 - 自适应屏幕尺寸，地图从 map.txt 读取
-# 按键: 2前 8后 4左 6右 1左转 3右转 5升高 0降低 7抬头 9低头 +FOV扩 -FOV缩 Q退出
-
-if ! command -v awk >/dev/null 2>&1; then
-    echo "缺少 awk 命令"
-    exit 1
-fi
-
-if [ ! -f map.txt ]; then
-    echo "地图文件 map.txt 不存在，请先运行生成命令"
-    exit 1
-fi
 MAP=$(cat map.txt)
 
 posX=40.0; posY=40.0; dirX=-1.0; dirY=0.0; planeX=0.0; planeY=0.66
@@ -31,8 +19,6 @@ while true; do
     # 确保最小尺寸
     [ $rows -lt 3 ] && rows=3
     [ $cols -lt 10 ] && cols=10
-
-    # 写入玩家位置供小地图读取（当前目录，避免 /tmp 权限问题）
     echo "$posX $posY $dirX $dirY" > ./player_pos
 
     printf '\033[H'
