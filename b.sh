@@ -1,16 +1,9 @@
 #!/system/bin/sh
-# 小地图 - 自适应全屏，玩家用 p 表示，无闪烁高刷新
-# 需要 map.txt（逗号分隔200行）和 ./player_pos（由主脚本 I.sh 生成）
-
-if ! command -v awk >/dev/null 2>&1; then
-    echo "缺少 awk 命令"
-    exit 1
-fi
 
 # 读取地图数据（逗号分隔）
 map_data=$(cat map.txt | tr -d '\n')
 IFS=',' read -r -a map_lines <<< "$map_data"
-IFS=$' \t\n'  # 恢复默认分隔符，否则后续 read 会出错
+IFS=$' \t\n'  
 
 if [ ${#map_lines[@]} -ne 200 ]; then
     echo "地图数据错误，预期200行，实际 ${#map_lines[@]}"
@@ -25,7 +18,6 @@ trap cleanup INT TERM EXIT
 
 printf '\033[?1049h\033[2J\033[?25l'
 
-# 缓存上次坐标和尺寸，避免无效刷新
 last_cx=""
 last_cy=""
 last_width=0
