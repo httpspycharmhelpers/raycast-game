@@ -1,7 +1,4 @@
 #!/system/bin/sh
-# MAIN.sh - 检查依赖、生成地图、使用 tmux 分屏运行 I.sh 和 b.sh
-
-# 检查依赖命令
 missing=0
 for cmd in awk bc tmux; do
     if ! command -v $cmd >/dev/null 2>&1; then
@@ -54,5 +51,4 @@ fi
 # 确保 I.sh 和 b.sh 可执行
 chmod +x I.sh b.sh 2>/dev/null
 
-# 使用 tmux 分屏：上 I.sh，下 b.sh
 tmux new-session -d -s maze3d 'bash I.sh' \; split-window -v 'bash b.sh' \; attach -t maze3d
