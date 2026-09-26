@@ -1,0 +1,11 @@
+# 运行时/恢复实验残留文件
+player_pos
+l.hex
+I.b64
+I.enc
+I.full
+I.gz
+I.hex
+I.inner
+I.xor
+I_recovered.sh
